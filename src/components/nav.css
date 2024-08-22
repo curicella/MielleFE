@@ -1,6 +1,9 @@
-
 /* Resetovanje osnovnih stilova */
-body, html, ul, li, a {
+body,
+html,
+ul,
+li,
+a {
   margin: 0;
   padding: 0;
   text-decoration: none;
@@ -28,20 +31,19 @@ body, html, ul, li, a {
 #navbar-links {
   padding: 0 1rem 0 22rem;
 }
-#navbar-links a{
+#navbar-links a {
   margin: 0 1.3rem;
   color: #333;
   font-size: 1rem;
 }
 
-#navbar-links a:hover{
+#navbar-links a:hover {
   border-bottom: 1px solid #1c1c1c;
   padding-bottom: 0.2rem;
   transition: 0.3s;
 }
 
-
-#navbar-auth a{
+#navbar-auth a {
   margin: 0 1rem;
   color: #333;
   font-size: 1rem;
@@ -52,7 +54,7 @@ body, html, ul, li, a {
   align-items: center;
 }
 
-#navbar_auth a{
+#navbar_auth a {
   margin-right: 15px;
   color: #333;
 }
@@ -68,7 +70,6 @@ body, html, ul, li, a {
   background-color: #1c1c1c4c;
   transition: 0.3s;
 }
-
 
 img {
   width: 13rem;
