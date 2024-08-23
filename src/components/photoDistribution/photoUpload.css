@@ -1,0 +1,31 @@
+/* src/pageStyles/photoUpload.css */
+
+.photo-upload-container {
+  max-width: 600px;
+  margin: 4rem auto;
+  padding: 20px;
+  background-color: #ededed;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+input[type="file"] {
+  margin-bottom: 10px;
+}
+
+button {
+  background-color: #1c1c1c;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #1c1c1c;
+}
+
+p {
+  margin-top: 10px;
+}

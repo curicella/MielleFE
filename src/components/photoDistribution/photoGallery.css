@@ -1,0 +1,39 @@
+/* src/pageStyles/photoGallery.css */
+
+.photo-gallery-container {
+  max-width: 800px;
+  margin: 4rem auto;
+  padding: 20px;
+  background-color: #ededed;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+}
+
+.photo-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.photo-item {
+  flex: 1 1 calc(33.333% - 20px);
+  box-sizing: border-box;
+}
+
+.photo-item img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.photo-item a {
+  display: block;
+  margin-top: 5px;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.photo-item a:hover {
+  text-decoration: underline;
+}

@@ -1,20 +1,23 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { UserProvider } from "./contexts/UserContext";
 import { BrowserRouter } from "react-router-dom";
-import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 
 // Make sure to replace with your own publishable key
-const stripePromise = loadStripe('your-publishable-key-here');
+const stripePromise = loadStripe("your-publishable-key-here");
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
     <Elements stripe={stripePromise}>
-      <App />
+      <UserProvider>
+        <App />
+      </UserProvider>
     </Elements>
   </BrowserRouter>
 );
