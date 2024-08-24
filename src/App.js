@@ -31,9 +31,8 @@ function App() {
         <Route path="/upload-photo" element={<PhotoUpload />} />
         <Route path="/photo-gallery" element={<PhotoGallery />} />
         <Route path="/employeeDash" element={<EmployeeDash />} />
-        <Route path="/pricing" element={<EmployeeDash />} />
+        <Route path="/pricing" element={<Pricing />} />
 
-        <Route />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
