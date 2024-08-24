@@ -16,16 +16,20 @@
   color: #333;
 }
 
-ul {
+.dashboard-container ul {
   list-style-type: none;
   padding: 0;
 }
 
-li {
+.dashboard-container a {
+  color: #fff;
+}
+
+.dashboard-container li {
   margin-bottom: 10px;
 }
 
-button {
+.dashboard-container button {
   background-color: #007bff;
   color: white;
   padding: 10px 20px;
@@ -35,6 +39,6 @@ button {
   margin-right: 10px;
 }
 
-button:hover {
+.dashboard-container button:hover {
   background-color: #0056b3;
 }

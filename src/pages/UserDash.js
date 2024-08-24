@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
 import "./pageStyles/dash.css";
+import { Link } from "react-router-dom";
 
 const UserDash = () => {
   const { user, bookings } = useContext(UserContext);
@@ -22,7 +23,8 @@ const UserDash = () => {
           {bookings.length > 0 ? (
             bookings.map((booking) => (
               <li key={booking.id}>
-                {booking.type} Photography - Date: {booking.date} - Status: {booking.status}
+                {booking.type} Photography - Date: {booking.date} - Status:{" "}
+                {booking.status}
               </li>
             ))
           ) : (
@@ -33,23 +35,14 @@ const UserDash = () => {
 
       <div className="dashboard-section">
         <h3>Credits</h3>
-        <p>You have <strong>{credits} credits</strong> available.</p>
+        <p>
+          You have <strong>{credits} credits</strong> available.
+        </p>
       </div>
 
       <div className="dashboard-section">
         <h3>Downloadable Content</h3>
-        <ul>
-          <li>
-            <a href="/downloads/photo1.jpg" download>
-              Download Wedding Album
-            </a>
-          </li>
-          <li>
-            <a href="/downloads/video1.mp4" download>
-              Download Graduation Video
-            </a>
-          </li>
-        </ul>
+        <button><Link to="/photo-gallery">Your Gallery</Link></button>
       </div>
 
       <div className="dashboard-section">

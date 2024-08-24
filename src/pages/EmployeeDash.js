@@ -70,6 +70,7 @@ const EmployeeDash = () => {
         <h3>Administration</h3>
         <button>Manage Sessions</button>
         <button>Manage Employees</button>
+        <button><a href='/upload-photo'>Upload Photos</a></button>
       </div>
     </div>
   );

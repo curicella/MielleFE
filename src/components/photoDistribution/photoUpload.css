@@ -9,11 +9,11 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-input[type="file"] {
+.photo-upload-container input[type="file"] {
   margin-bottom: 10px;
 }
 
-button {
+.photo-upload-container button {
   background-color: #1c1c1c;
   color: white;
   padding: 10px 20px;
@@ -22,10 +22,10 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+.photo-upload-container button:hover {
   background-color: #1c1c1c;
 }
 
-p {
+.photo-upload-container p {
   margin-top: 10px;
 }

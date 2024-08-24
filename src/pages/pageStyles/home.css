@@ -62,6 +62,9 @@ h3 {
     align-items: center;
 }
 
+.btn Link {
+    color: black;
+}
 .btn {
     display: flex;
     justify-content: center;
