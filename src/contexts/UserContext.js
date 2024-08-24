@@ -1,11 +1,8 @@
-// src/contexts/UserContext.js
 import React, { createContext, useState, useEffect } from 'react';
 import { getUserData, getUserBookings, updateUserProfile, getEmployeeTasks, uploadPhoto } from '../services/Services';
 
-// Kreiramo UserContext
 export const UserContext = createContext();
 
-// UserProvider komponenta koja koristi UserContext
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [bookings, setBookings] = useState([]);
@@ -76,5 +73,4 @@ export const UserProvider = ({ children }) => {
   );
 };
 
-// Custom hook for using UserContext
 export const useUser = () => React.useContext(UserContext);

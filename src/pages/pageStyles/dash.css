@@ -30,7 +30,7 @@
 }
 
 .dashboard-container button {
-  background-color: #007bff;
+  background-color: #1c1c1c;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -40,5 +40,5 @@
 }
 
 .dashboard-container button:hover {
-  background-color: #0056b3;
+  background-color: #0e0d0d;
 }

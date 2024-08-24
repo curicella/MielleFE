@@ -1,4 +1,3 @@
-// src/pages/EmployeeDash.js
 import React, { useContext, useState, useEffect } from 'react';
 import { UserContext } from '../contexts/UserContext'; // Ako je potrebno za podatke o korisniku
 import { getEmployeeSessions, getAllEmployees, getStatistics } from '../services/Services'; // Dodaj ove funkcije u Services.js ako nisu već prisutne

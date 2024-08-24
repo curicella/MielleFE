@@ -7,23 +7,23 @@
   max-width: 50rem;
   margin: 2rem auto;
   padding: 2rem;
-  background-color: #f5f5f5; /* Malo svetlija pozadina za bolji kontrast */
+  background-color: #f5f5f5;
   box-shadow: 0 0 2rem #1c1c1c57;
-  border-radius: 10px; /* Zaobljeni uglovi kontejnera */
+  border-radius: 10px;
 }
 
 .booking-container h2 {
   font-weight: 500;
   margin-bottom: 2rem;
-  color: #333; /* Tamnija boja za bolju čitljivost */
+  color: #333;
 }
 
 .booking-form {
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  column-gap: 1.5rem; /* Veći razmak između kolona */
-  row-gap: 1.5rem; /* Veći razmak između redova */
+  column-gap: 1.5rem;
+  row-gap: 1.5rem;
 }
 
 .form-group {
@@ -33,14 +33,14 @@
 }
 
 .form-group.full-width {
-  grid-column: span 2; /* Puna širina za elemente koji treba da se protegnu */
+  grid-column: span 2;
 }
 
 .form-group label {
   font-size: 1rem;
   font-weight: 500;
   margin-bottom: 0.5rem;
-  color: #555; /* Svetlija siva za label */
+  color: #555;
 }
 
 .form-group input,
@@ -49,21 +49,21 @@
   padding: 0.75rem;
   font-size: 1rem;
   outline: none;
-  border: 1px solid #ccc; /* Svetlija boja za obrub */
-  background-color: #fff; /* Belo za bolji kontrast */
-  border-radius: 5px; /* Zaobljeni uglovi za inpute */
-  box-shadow: inset 0 0 5px #eee; /* Suptilna unutrašnja senka */
+  border: 1px solid #ccc; 
+  background-color: #fff; 
+  border-radius: 5px;
+  box-shadow: inset 0 0 5px #eee;
   transition: border-color 0.3s ease;
 }
 
 .form-group input:focus,
 .form-group select:focus {
-  border-color: #1c1c1c; /* Istaknuta boja na fokus */
+  border-color: #1c1c1c;
 }
 
 .booking-container button[type="submit"],
 .booking-container button[type="button"] {
-  grid-column: span 2; /* Dugmad su puna širina */
+  grid-column: span 2;
   padding: 0.75rem;
   font-size: 1rem;
   background-color: #1c1c1c;
@@ -80,18 +80,18 @@
 
 .booking-container button[type="submit"]:hover,
 .booking-container button[type="button"]:hover {
-  background-color: #333; /* Tamnija boja na hover */
+  background-color: #333;
 }
 
 .booking-response,
 .payment-error,
 .payment-success {
-  grid-column: span 2; /* Spanovanje preko dve kolone */
+  grid-column: span 2;
   margin-top: 1rem;
   padding: 1rem;
   border-radius: 5px;
-  background-color: #fff; /* Bela pozadina za bolji kontrast */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Suptilna senka za vizuelnu dubinu */
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .payment-error {
@@ -133,7 +133,7 @@
 }
 
 .checkout .StripeElement {
-  width: 100%; /* Širina Stripe elementa */
+  width: 100%;
   padding: 0.75rem;
   border: 1px solid #ccc;
   border-radius: 5px;

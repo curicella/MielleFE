@@ -141,3 +141,47 @@ export const getEmployeeTasks = async () => {
     { id: 2, description: "Update graduation album", status: "Completed" }
   ];
 };
+
+export const getPhotosByDate = async (date) => {
+  try {
+    const response = await axios.get(`${API_URL}/photos`, {
+      params: { date },
+    });
+    return response.data; // Pretpostavljam da backend vraća niz sa podacima o slikama
+  } catch (error) {
+    console.error("There was an error fetching photos:", error);
+    throw error;
+  }
+};
+
+// Mock function to get user's credits
+export const getUserCredits = async () => {
+  return 100; // Replace with an API call to get actual user credits
+};
+
+// Function to download photo if the user has enough credits
+export const downloadPhoto = async (photoId, userCredits) => {
+  const costPerPhoto = 10; // Assuming each photo costs 10 credits
+  if (userCredits >= costPerPhoto) {
+    // API call to deduct credits and allow download
+    const response = await axios.post(`${API_URL}/download-photo`, { photoId });
+    if (response.data.success) {
+      return {
+        downloadUrl: response.data.downloadUrl,
+        remainingCredits: userCredits - costPerPhoto,
+      };
+    }
+  } else {
+    throw new Error("Not enough credits to download the photo.");
+  }
+};
+
+// Mock function to schedule photo printing
+export const schedulePhotoPrinting = async (photoIds, userId) => {
+  // API call to schedule printing
+  const response = await axios.post(`${API_URL}/schedule-printing`, {
+    photoIds,
+    userId,
+  });
+  return response.data;
+};

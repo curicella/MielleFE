@@ -1,39 +1,64 @@
-/* src/pageStyles/photoGallery.css */
-
 .photo-gallery-container {
   max-width: 800px;
-  margin: 4rem auto;
+  margin: 2rem auto;
   padding: 20px;
-  background-color: #ededed;
+  background-color: #f5f5f5;
+  box-shadow: 0 0 2rem #1c1c1c57;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
 }
 
-.photo-grid {
+.date-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.photo-gallery-date {
+  margin-bottom: 20px;
+}
+
+.photo-gallery-content {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  max-height: 60px;
 }
 
-.photo-item {
-  flex: 1 1 calc(33.333% - 20px);
-  box-sizing: border-box;
+.photo-gallery-content.expanded {
+  max-height: none;
 }
 
-.photo-item img {
+.photo-thumbnail {
+  width: 100px;
+  height: 100px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.photo-placeholder {
   width: 100%;
-  height: auto;
+  height: 100%;
+  background-color: black;
+}
+
+.photo-gallery-container button {
+  background-color: #1c1c1c;
+  color: white;
+  padding: 5px 10px;
+  border: none;
   border-radius: 5px;
-}
-
-.photo-item a {
-  display: block;
+  cursor: pointer;
   margin-top: 5px;
-  color: #007bff;
-  text-decoration: none;
 }
 
-.photo-item a:hover {
-  text-decoration: underline;
+.photo-gallery-container button:hover {
+  background-color: #0e0e0e;
+}
+
+.error-message {
+  color: red;
+  margin-bottom: 10px;
 }
