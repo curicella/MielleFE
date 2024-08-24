@@ -133,18 +133,6 @@ const BookingForm = () => {
                         <label>
                             <input
                                 type="checkbox"
-                                name="album"
-                                checked={formData.album}
-                                onChange={handleChange}
-                            />
-                            Add Album
-                        </label>
-                    </div>
-
-                    <div className="form-group" id="checkbox">
-                        <label>
-                            <input
-                                type="checkbox"
                                 name="videoRecording"
                                 checked={formData.videoRecording}
                                 onChange={handleChange}

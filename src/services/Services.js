@@ -135,6 +135,32 @@ export const getPhotos = async () => {
     throw error;
   }
 };
+
+export const addEmployee = async (employeeData) => {
+  // API call to add employee
+  return axios.post(`${API_URL}/employees`, employeeData)
+    .then(response => response.data)
+    .catch(error => {
+      console.error('Error adding employee:', error);
+      throw error;
+    });
+};
+
+export const deleteEmployee = async (employeeId) => {
+  // API call to delete employee
+  return axios.delete(`${API_URL}/employees/${employeeId}`)
+    .then(response => response.data)
+    .catch(error => {
+      console.error('Error deleting employee:', error);
+      throw error;
+    });
+};
+
+export const manageSessions = async () => {
+  // Logic to manage sessions
+  console.log('Managing sessions...');
+};
+
 export const getEmployeeTasks = async () => {
   return [
     { id: 1, description: "Upload photos from wedding", status: "Pending" },
