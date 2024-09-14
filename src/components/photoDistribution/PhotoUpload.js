@@ -1,11 +1,12 @@
 // src/pages/PhotoUpload.js
 import React, { useState } from 'react';
-import { uploadPhoto } from '../../services/Services';
 import '../../components/photoDistribution/photoUpload.css';
 
 const PhotoUpload = () => {
   const [files, setFiles] = useState([]);
   const [status, setStatus] = useState('');
+  const selectedSessionId = localStorage.getItem('selectedSessionId'); // Rezervacija korisnika
+  const loggedInEmployeeId = localStorage.getItem('employeeId'); // ID prijavljenog zaposlenog
 
   const handleFileChange = (e) => {
     setFiles(Array.from(e.target.files));
@@ -17,17 +18,56 @@ const PhotoUpload = () => {
       return;
     }
 
-    const formData = new FormData();
-    files.forEach((file) => {
-      formData.append('photos', file);
-    });
-
     try {
-      await uploadPhoto(formData);
-      setStatus('Photos uploaded successfully!');
+      // 1. Prvo kreiramo album
+      const albumData = {
+        sessionId: selectedSessionId ? parseInt(selectedSessionId) : 0, // Proverite da li postoji sessionId
+        employeeId: loggedInEmployeeId ? parseInt(loggedInEmployeeId) : 0, // Proverite da li postoji employeeId
+        isPublic: false // Postavite vrednost prema potrebama
+      };
+      console.log('Album data to be sent:', albumData);
+
+      const albumResponse = await fetch('http://naprednebaze.somee.com/api/Albums/createAlbum', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(albumData),
+      });
+      const albumResponseData = await albumResponse.json();
+      console.log('Album response data:', albumResponseData); // Provera vraćenog objekta
+
+      // Provera da li je album uspešno kreiran
+      if (!albumResponse.ok || !albumResponseData.code) {
+        setStatus('Error creating album.');
+        return;
+      }
+
+      const albumId = albumResponseData.id; // ID novokreiranog albuma
+
+      setStatus(`Album created successfully! Access code: ${albumResponseData.code}`);
+
+      // 2. Nakon uspešnog kreiranja albuma, upload-ujemo fotografije
+      const formData = new FormData();
+      files.forEach((file) => {
+        formData.append('photos', file);
+      });
+
+      const photoUploadResponse = await fetch(`http://naprednebaze.somee.com/api/Albums/uploadPhotos?albumId=${albumId}&employeeId=${loggedInEmployeeId}`, {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!photoUploadResponse.ok) {
+        setStatus('Error uploading photos.');
+        return;
+      }
+
+      setStatus('Photos uploaded and album created successfully!');
       setFiles([]);
     } catch (error) {
-      setStatus('Error uploading photos.');
+      console.error('An unexpected error occurred:', error);
+      setStatus('Error uploading photos or creating album.');
     }
   };
 

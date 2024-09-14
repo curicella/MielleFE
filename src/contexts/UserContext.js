@@ -1,71 +1,126 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { getUserData, getUserBookings, updateUserProfile, getEmployeeTasks, uploadPhoto } from '../services/Services';
+import { getUserBookings, updateUserProfile, uploadPhoto } from '../services/Services';
+import jwtDecode from 'jwt-decode';
 
 export const UserContext = createContext();
 
-export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+export const UserProvider = ({ children, initialUserData, initialToken }) => {
+  const [user, setUser] = useState(initialUserData || null);
+  const [employee, setEmployee] = useState(null); // Stanje za zaposlenog
+  const [token, setToken] = useState(initialToken || null);
   const [bookings, setBookings] = useState([]);
-  const [tasks, setTasks] = useState([]);
   const [photo, setPhoto] = useState(null);
   const [uploadStatus, setUploadStatus] = useState('');
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const userData = await getUserData();
-        setUser(userData);
+    if (user && token) {
+      const fetchBookings = async () => {
+        const userBookings = await getUserBookings(token);
+        setBookings(userBookings);
+      };
+      fetchBookings();
+    }
+  }, [user, token]);
 
-        if (userData.role === 'employee') {
-          const tasksData = await getEmployeeTasks();
-          setTasks(tasksData);
-        } else {
-          const userBookings = await getUserBookings();
-          setBookings(userBookings);
+  const login = async (credentials) => {
+    try {
+      const response = await fetch('http://naprednebaze.somee.com/api/Users/Login', {
+        //'https://localhost:7098/api/Users/Login',
+        
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(credentials),
+      });
+      const result = await response.json();
+  
+      if (response.ok) {
+        const { token, $id } = result;
+        if (token && $id) {
+          setToken(token);
+          setUser({ id: $id });
+          localStorage.setItem('token', token);
+          localStorage.setItem('userId', $id);
+  
+          // Fetch korisnički profil nakon prijavljivanja
+          const profileResponse = await fetch('http://naprednebaze.somee.com/api/Users/Profile', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`, // Dodavanje tokena u zahteve
+            },
+          });
+  
+          if (profileResponse.ok) {
+            const userProfile = await profileResponse.json();
+            // Ažuriranje korisnika sa profil informacijama
+            setUser(userProfile);
+          } else {
+            console.error('Failed to fetch user profile:', profileResponse.status);
+          }
         }
-      } catch (error) {
-        console.error('Error fetching user data:', error);
+      } else {
+        console.error('Login failed:', result);
       }
-    };
-
-    fetchUserData();
-  }, []);
-
-  const updateProfile = async (userData) => {
-    try {
-      const updatedUser = await updateUserProfile(userData);
-      setUser(updatedUser);
-      return updatedUser;
     } catch (error) {
-      console.error('Error updating profile:', error);
+      console.error('Error during login:', error);
     }
   };
+  
 
-  const handlePhotoChange = (e) => {
-    setPhoto(e.target.files[0]);
-  };
-
-  const handlePhotoUpload = async () => {
+  const employeeLogin = async (credentials) => {
     try {
-      await uploadPhoto(photo);
-      setUploadStatus('Photo uploaded successfully!');
+      const response = await fetch('http://naprednebaze.somee.com/api/Employees/Login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(credentials),
+      });
+  
+      // Provera da li je odgovor uspešan pre nego što pozovemo .json()
+      if (!response.ok) {
+        const errorText = await response.text(); // Čitamo ceo odgovor kao tekst
+        console.error('Login failed:', errorText); // Prikazujemo potencijalne greške iz servera
+        return;
+      }
+  
+      const result = await response.json();
+    
+      const { token, id, role } = result; // Očekujemo da server vraća "id", a ne "$id"
+      if (token && id && role) {
+        setToken(token);
+        setEmployee({ id, role }); // Postavljamo ulogu zaposlenog sa ispravnim ID-jem
+        localStorage.setItem('token', token);
+        localStorage.setItem('employeeId', id);
+        localStorage.setItem('employeeRole', role); // Čuvamo ulogu zaposlenog u localStorage
+      }
+      
     } catch (error) {
-      console.error('Error uploading photo:', error);
-      setUploadStatus('Failed to upload photo.');
+      console.error('Error during login:', error);
     }
+  };
+  
+
+  const logout = () => {
+    setUser(null);
+    setEmployee(null); // Resetuje podatke zaposlenog
+    setToken(null);
+    localStorage.removeItem('userId');
+    localStorage.removeItem('token');
+    localStorage.removeItem('employeeId'); // Uklanja podatke zaposlenog iz storage-a
+    localStorage.removeItem('employeeRole'); // Uklanja ulogu zaposlenog
   };
 
   return (
     <UserContext.Provider
       value={{
         user,
+        employee,
+        token,
         bookings,
-        tasks,
         photo,
         uploadStatus,
-        updateProfile,
-        handlePhotoChange,
-        handlePhotoUpload,
+        login,
+        employeeLogin,
+        logout
       }}
     >
       {children}

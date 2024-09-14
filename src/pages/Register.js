@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { registerUser } from "../services/Services";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { registerUser, verifyUser } from "../services/Services";
+import VerificationModal from "./VerificationModal";
 import "./pageStyles/auth.css";
 
 function Register() {
@@ -10,6 +12,9 @@ function Register() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
   const [error, setError] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(false);
+  const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -22,14 +27,34 @@ function Register() {
         phoneNumber,
         address,
       });
-      console.log(response.data);
+  
+      console.log('Server Response:', response.data); // Proverite šta server vraća
+  
+      if (response.data && response.data.message && response.data.message.includes("Verification code sent")) {
+        setIsModalOpen(true);
+      } else {
+        setError(response.data.message || "Registration initiation failed");
+      }
     } catch (err) {
+      console.error('Registration Error:', err);
       setError("Registration failed");
     }
   };
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+
+  const handleVerify = async (verificationCode) => {
+    try {
+      const response = await verifyUser(email, verificationCode);
+      if (response.data === "User verified and registration completed successfully.") {
+        setIsRegistered(true);
+        setIsModalOpen(false);
+        navigate("/login"); 
+      } else {
+        setError("Invalid verification code");
+      }
+    } catch (err) {
+      setError("Verification failed");
+    }
+  };
 
   return (
     <div className="auth-container">
@@ -91,9 +116,17 @@ function Register() {
         </div>
         {error && <p className="error-message">{error}</p>}
         <div className="btn">
-          <button type="submit">Register</button>
+          <button type="submit" disabled={isRegistered}>Register</button>
         </div>
       </form>
+
+      {/* Modal za verifikaciju */}
+      <VerificationModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onVerify={handleVerify}
+        email={email}
+      />
     </div>
   );
 }

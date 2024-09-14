@@ -1,15 +1,37 @@
 import axios from "axios";
 
-const API_URL = "https://your-api-url.com"; // change to your actual API URL
+const API_URL = "http://naprednebaze.somee.com/api"
+//"https://localhost:7098/api"; // change to your actual API URL
 
-export const loginUser = (email, password) => {
-  return axios.post(`${API_URL}/login`, { email, password });
+export const loginUser = (email, password, userType = 'user') => {
+  const endpoint = userType === 'employee' ? 'Employees/Login' : 'Users/Login';
+  return axios.post(`${API_URL}/${endpoint}`, { email, password });
 };
 
 export const registerUser = (userData) => {
-  return axios.post(`${API_URL}/register`, userData);
+  return axios.post(`${API_URL}/Users/Register`, userData);
 };
 
+export const verifyUser = (email, verificationCode) => {
+  return axios.post(`${API_URL}/Users/Verify`, {
+    email: email,
+    verificationCode: verificationCode
+  });
+};
+
+export const getUserBookings = async (token) => {
+  try {
+    const response = await axios.get(`${API_URL}/Users/MyBookings`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching user bookings:', error);
+    throw error;
+  }
+};
 // Mock function to check availability
 export const checkAvailability = async (formData) => {
   return {
@@ -26,24 +48,15 @@ export const createPaymentIntent = async (price) => {
 };
 
 // Funkcija za dobijanje podataka o korisniku
-export const getUserData = async () => {
-  return axios.get(`${API_URL}/user`)
-    .then(response => response.data)
-    .catch(error => {
-      console.error('Error fetching user data:', error);
-      throw error;
-    });
-};
+//export const getUserData = async () => {
+  //return axios.get(`${API_URL}/user`)
+    //.then(response => response.data)
+    //.catch(error => {
+    //  console.error('Error fetching user data:', error);
+     // throw error;
+   // });
+//};
 
-// Funkcija za dobijanje rezervacija korisnika
-export const getUserBookings = async () => {
-  return axios.get(`${API_URL}/user/bookings`)
-    .then(response => response.data)
-    .catch(error => {
-      console.error('Error fetching user bookings:', error);
-      throw error;
-    });
-};
 
 // Funkcija za ažuriranje profila korisnika
 export const updateUserProfile = async (userData) => {
