@@ -15,16 +15,25 @@ function Login() {
     e.preventDefault();
     try {
       if (userType === "user") {
-        await login({ email, password }); // Pozovi login za korisnika
-        navigate("/gallery"); // Preusmeri korisnika na /gallery
+        const result = await login({ email, password }); // Pozovite login za korisnika
+        if (result) { // Provera da li je login uspešan
+          navigate("/gallery"); // Preusmerite korisnika na /gallery
+        } else {
+          setError("Invalid email or password"); // Postavite grešku ako prijava nije uspešna
+        }
       } else {
-        await employeeLogin({ email, password }); // Pozovi login za zaposlenog
-        navigate("/employeeDash"); // Preusmeri zaposlenog na /employeeDash
+        const result = await employeeLogin({ email, password }); // Pozovite login za zaposlenog
+        if (result) { // Provera da li je prijava uspešna
+          navigate("/employeeDash"); // Preusmerite zaposlenog na /employeeDash
+        } else {
+          setError("Invalid email or password"); // Postavite grešku ako prijava nije uspešna
+        }
       }
     } catch (err) {
-      setError("Invalid email or password");
+      setError("An error occurred during login.");
     }
   };
+  
   
 
   return (

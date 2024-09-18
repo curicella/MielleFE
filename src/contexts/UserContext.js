@@ -10,6 +10,29 @@ export const UserProvider = ({ children, initialUserData, initialToken }) => {
   const [bookings, setBookings] = useState([]);
   const [photo, setPhoto] = useState(null);
   const [uploadStatus, setUploadStatus] = useState('');
+  const [error, setError] = useState(null); // Dodajte stanje za greške
+
+
+  useEffect(() => {
+    const storedToken = localStorage.getItem('token');
+    const storedUserId = localStorage.getItem('userId');
+    const storedEmployeeId = localStorage.getItem('employeeId');
+    const storedEmployeeRole = localStorage.getItem('employeeRole');
+
+    if (storedToken) {
+      setToken(storedToken);
+
+      if (storedUserId) {
+        // Ažuriraj stanje korisnika na osnovu sačuvanih podataka
+        setUser({ id: storedUserId });
+      }
+
+      if (storedEmployeeId && storedEmployeeRole) {
+        // Ažuriraj stanje zaposlenog
+        setEmployee({ id: storedEmployeeId, role: storedEmployeeRole });
+      }
+    }
+  }, []);
 
   useEffect(() => {
     if (user && token) {
@@ -53,12 +76,15 @@ export const UserProvider = ({ children, initialUserData, initialToken }) => {
             const userProfile = await profileResponse.json();
             // Ažuriranje korisnika sa profil informacijama
             setUser(userProfile);
+            return true; 
           } else {
             console.error('Failed to fetch user profile:', profileResponse.status);
+            return false;
           }
         }
-      } else {
-        console.error('Login failed:', result);
+      }  else {
+        setError('Login failed: Invalid email or password'); // Postavite poruku o grešci
+        return false;
       }
     } catch (error) {
       console.error('Error during login:', error);
@@ -90,10 +116,15 @@ export const UserProvider = ({ children, initialUserData, initialToken }) => {
         localStorage.setItem('token', token);
         localStorage.setItem('employeeId', id);
         localStorage.setItem('employeeRole', role); // Čuvamo ulogu zaposlenog u localStorage
+        return true;
       }
-      
+      else {
+        setError('Login failed: Invalid email or password'); // Postavite poruku o grešci
+        return false;
+      }
     } catch (error) {
       console.error('Error during login:', error);
+      return false;
     }
   };
   
@@ -119,10 +150,12 @@ export const UserProvider = ({ children, initialUserData, initialToken }) => {
         uploadStatus,
         login,
         employeeLogin,
-        logout
+        logout,
+        error
       }}
     >
       {children}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
     </UserContext.Provider>
   );
 };
