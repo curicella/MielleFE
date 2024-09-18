@@ -7,7 +7,7 @@
   box-shadow: 0 0 2rem #1c1c1c57;
 }
 .schedule-link {
-  color: #808080 !important; 
+  color: #484848 !important; 
   text-decoration: underline !important; 
 }
 
@@ -34,6 +34,8 @@
 
 .dashboard-container li {
   margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .dashboard-container button {

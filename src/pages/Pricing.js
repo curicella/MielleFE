@@ -3,11 +3,11 @@ import './pageStyles/pricing.css';
 
 const Pricing = () => {
     const services = [
-        { name: 'Private Photography Session', price: '100 USD' },
-        { name: 'Graduation Photography', price: '150 USD' },
-        { name: 'Wedding Photography', price: '500 USD' },
-        { name: 'Event Filming', price: '300 USD' },
-        { name: 'Photo Album Design', price: '50 USD' },
+        { name: 'Private Photography Session', price: '100 credits' },
+        { name: 'Graduation Photography', price: '150 credits' },
+        { name: 'Wedding Photography', price: '500 credits' },
+        { name: 'Event Filming', price: '300 credits' },
+        { name: 'Photo Album Design', price: '50 credits' },
     ];
 
     return (

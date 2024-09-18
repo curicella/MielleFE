@@ -41,6 +41,29 @@
   display: block;
 }
 
+.authForm-group select {
+  width: 30rem;
+  padding: 0.6rem;
+  font-size: 1rem;
+  outline: none;
+  border: 1px solid #1c1c1c;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #333;
+  cursor: pointer;
+  transition: 0.3s ease, 0.3s ease;
+}
+
+.authForm-group select:focus {
+  border-color: #4a90e2;
+  background-color: #f0f4f8;
+  outline: none;
+}
+
+.authForm-group option {
+  padding: 0.6rem;
+}
+
 .auth-container input[type="text"], 
 .auth-container input[type="password"],
 .auth-container input[type="email"] {

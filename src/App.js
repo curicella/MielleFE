@@ -14,6 +14,7 @@ import EmployeeDash from "./pages/EmployeeDash";
 import BookingForm from "./pages/BookingForm";
 import PhotoGallery from "./components/photoDistribution/PhotoGallery";
 import PhotoUpload from "./components/photoDistribution/PhotoUpload";
+import AddEmployee from "./pages/AddEmployee";
 
 function App() {
   return (
@@ -25,12 +26,13 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/gallery" element={<UserDash />} />
-        
+
         <Route path="/booking" element={<BookingForm />} />
         <Route path="/dashboard" element={<UserDash />} />
         <Route path="/upload-photo" element={<PhotoUpload />} />
         <Route path="/photo-gallery" element={<PhotoGallery />} />
         <Route path="/employeeDash" element={<EmployeeDash />} />
+        <Route path="/addEmployee" element={<AddEmployee />} />
         <Route path="/pricing" element={<Pricing />} />
 
         <Route path="*" element={<NotFound />} />

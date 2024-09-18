@@ -1,6 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { getUserBookings, updateUserProfile, uploadPhoto } from '../services/Services';
-import jwtDecode from 'jwt-decode';
 
 export const UserContext = createContext();
 
@@ -15,7 +14,7 @@ export const UserProvider = ({ children, initialUserData, initialToken }) => {
   useEffect(() => {
     if (user && token) {
       const fetchBookings = async () => {
-        const userBookings = await getUserBookings(token);
+        const userBookings = await getUserBookings(token); 
         setBookings(userBookings);
       };
       fetchBookings();
