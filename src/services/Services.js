@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://miellebe-001-site1.ftempurl.com/api"
+const API_URL = "http://miellephotostudiobe.somee.com/api"
 //"https://localhost:7098/api"; // change to your actual API URL
 
 export const loginUser = (email, password, userType = 'user') => {

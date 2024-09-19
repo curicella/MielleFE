@@ -24,7 +24,7 @@ const UserDash = () => {
 
   const fetchCredits = async () => {
     try {
-      const response = await axios.get("http://miellebe-001-site1.ftempurl.com/api/Users/MyCredits", {
+      const response = await axios.get("http://miellephotostudiobe.somee.com/api/Users/MyCredits", {
         headers: { Authorization: `Bearer ${token}` }
       });
       const creditsValue = response.data.credits;
@@ -36,7 +36,7 @@ const UserDash = () => {
 
   const fetchBookings = async () => {
     try {
-      const response = await axios.get("http://miellebe-001-site1.ftempurl.com/api/Users/MyBookings", {
+      const response = await axios.get("http://miellephotostudiobe.somee.com/api/Users/MyBookings", {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (response.data.bookings && Array.isArray(response.data.bookings.$values)) {
@@ -65,7 +65,7 @@ const UserDash = () => {
     try {
       console.log("Cancelling booking with ID:", selectedBookingId);
       const response = await axios.delete(
-        `http://miellebe-001-site1.ftempurl.com/api/Bookings/${selectedBookingId}`,
+        `http://miellephotostudiobe.somee.com/api/Bookings/${selectedBookingId}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       console.log("Booking cancelled:", response.data);

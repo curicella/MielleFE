@@ -46,7 +46,7 @@ export const UserProvider = ({ children, initialUserData, initialToken }) => {
 
   const login = async (credentials) => {
     try {
-      const response = await fetch('http://miellebe-001-site1.ftempurl.com/api/Users/Login', {
+      const response = await fetch('http://miellephotostudiobe.somee.com/api/Users/Login', {
         //'https://localhost:7098/api/Users/Login',
         
         method: 'POST',
@@ -64,7 +64,7 @@ export const UserProvider = ({ children, initialUserData, initialToken }) => {
           localStorage.setItem('userId', $id);
   
           // Fetch korisnički profil nakon prijavljivanja
-          const profileResponse = await fetch('http://miellebe-001-site1.ftempurl.com/api/Users/Profile', {
+          const profileResponse = await fetch('http://miellephotostudiobe.somee.com/api/Users/Profile', {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
@@ -94,7 +94,7 @@ export const UserProvider = ({ children, initialUserData, initialToken }) => {
 
   const employeeLogin = async (credentials) => {
     try {
-      const response = await fetch('http://miellebe-001-site1.ftempurl.com/api/Employees/Login', {
+      const response = await fetch('http://miellephotostudiobe.somee.com/api/Employees/Login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(credentials),
