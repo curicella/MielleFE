@@ -1,11 +1,17 @@
 import axios from "axios";
 
-const API_URL = "http://miellephotostudiobe.somee.com/api"
+const API_URL = "http://miellephotostudiobe.somee.com/api";
 //"https://localhost:7098/api"; // change to your actual API URL
 
-export const loginUser = (email, password, userType = 'user') => {
-  const endpoint = userType === 'employee' ? 'Employees/Login' : 'Users/Login';
-  return axios.post(`${API_URL}/${endpoint}`, { email, password });
+export const loginUser = (email, password, userType = "user") => {
+  const endpoint = userType === "employee" ? "Employees/Login" : "Users/Login";
+  return axios
+    .post(`${API_URL}/${endpoint}`, { email, password })
+    .then((response) => response.data) // Capture API response
+    .catch((error) => {
+      console.error("Login error", error);
+      throw error;
+    });
 };
 
 export const registerUser = (userData) => {
@@ -15,7 +21,7 @@ export const registerUser = (userData) => {
 export const verifyUser = (email, verificationCode) => {
   return axios.post(`${API_URL}/Users/Verify`, {
     email: email,
-    verificationCode: verificationCode
+    verificationCode: verificationCode,
   });
 };
 
@@ -28,7 +34,7 @@ export const getUserBookings = async (token) => {
     });
     return response.data;
   } catch (error) {
-    console.error('Error fetching user bookings:', error);
+    console.error("Error fetching user bookings:", error);
     throw error;
   }
 };
@@ -49,21 +55,21 @@ export const createPaymentIntent = async (price) => {
 
 // Funkcija za dobijanje podataka o korisniku
 //export const getUserData = async () => {
-  //return axios.get(`${API_URL}/user`)
-    //.then(response => response.data)
-    //.catch(error => {
-    //  console.error('Error fetching user data:', error);
-     // throw error;
-   // });
+//return axios.get(`${API_URL}/user`)
+//.then(response => response.data)
+//.catch(error => {
+//  console.error('Error fetching user data:', error);
+// throw error;
+// });
 //};
-
 
 // Funkcija za ažuriranje profila korisnika
 export const updateUserProfile = async (userData) => {
-  return axios.put(`${API_URL}/user`, userData)
-    .then(response => response.data)
-    .catch(error => {
-      console.error('Error updating user profile:', error);
+  return axios
+    .put(`${API_URL}/user`, userData)
+    .then((response) => response.data)
+    .catch((error) => {
+      console.error("Error updating user profile:", error);
       throw error;
     });
 };
@@ -81,17 +87,17 @@ export const getEmployeeSessions = async () => {
   return [
     {
       id: 1,
-      type: 'Wedding',
-      date: '2024-09-15',
-      location: 'Central Park',
-      status: 'Confirmed',
+      type: "Wedding",
+      date: "2024-09-15",
+      location: "Central Park",
+      status: "Confirmed",
     },
     {
       id: 2,
-      type: 'Graduation',
-      date: '2024-10-22',
-      location: 'Harvard University',
-      status: 'Pending',
+      type: "Graduation",
+      date: "2024-10-22",
+      location: "Harvard University",
+      status: "Pending",
     },
   ];
 };
@@ -101,15 +107,15 @@ export const getAllEmployees = async () => {
   return [
     {
       id: 1,
-      firstName: 'John',
-      lastName: 'Doe',
-      role: 'Photographer',
+      firstName: "John",
+      lastName: "Doe",
+      role: "Photographer",
     },
     {
       id: 2,
-      firstName: 'Jane',
-      lastName: 'Smith',
-      role: 'Editor',
+      firstName: "Jane",
+      lastName: "Smith",
+      role: "Editor",
     },
   ];
 };
@@ -127,12 +133,12 @@ export const uploadPhoto = async (formData) => {
   try {
     const response = await axios.post(`${API_URL}/upload-photo`, formData, {
       headers: {
-        'Content-Type': 'multipart/form-data'
-      }
+        "Content-Type": "multipart/form-data",
+      },
     });
     return response.data;
   } catch (error) {
-    console.error('Error uploading photos:', error);
+    console.error("Error uploading photos:", error);
     throw error;
   }
 };
@@ -144,40 +150,42 @@ export const getPhotos = async () => {
     const response = await axios.get(`${API_URL}/photos`);
     return response.data;
   } catch (error) {
-    console.error('Error fetching photos:', error);
+    console.error("Error fetching photos:", error);
     throw error;
   }
 };
 
 export const addEmployee = async (employeeData) => {
   // API call to add employee
-  return axios.post(`${API_URL}/employees`, employeeData)
-    .then(response => response.data)
-    .catch(error => {
-      console.error('Error adding employee:', error);
+  return axios
+    .post(`${API_URL}/employees`, employeeData)
+    .then((response) => response.data)
+    .catch((error) => {
+      console.error("Error adding employee:", error);
       throw error;
     });
 };
 
 export const deleteEmployee = async (employeeId) => {
   // API call to delete employee
-  return axios.delete(`${API_URL}/employees/${employeeId}`)
-    .then(response => response.data)
-    .catch(error => {
-      console.error('Error deleting employee:', error);
+  return axios
+    .delete(`${API_URL}/employees/${employeeId}`)
+    .then((response) => response.data)
+    .catch((error) => {
+      console.error("Error deleting employee:", error);
       throw error;
     });
 };
 
 export const manageSessions = async () => {
   // Logic to manage sessions
-  console.log('Managing sessions...');
+  console.log("Managing sessions...");
 };
 
 export const getEmployeeTasks = async () => {
   return [
     { id: 1, description: "Upload photos from wedding", status: "Pending" },
-    { id: 2, description: "Update graduation album", status: "Completed" }
+    { id: 2, description: "Update graduation album", status: "Completed" },
   ];
 };
 

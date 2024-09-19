@@ -6,35 +6,42 @@ import "./pageStyles/auth.css";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [userType, setUserType] = useState("user"); // Dodaj userType za izbor
-  const [error, setError] = useState("");
-  const { login, employeeLogin } = useContext(UserContext); // Dodaj employeeLogin
+  const [userType, setUserType] = useState("user");
+  const [localError, setLocalError] = useState(""); // Lokalno stanje za grešku
+  const { login, employeeLogin, error: globalError } = useContext(UserContext); // Dodaj globalError iz UserContext-a
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
+    // Provera da li su uneti email i lozinka
+    if (!email || !password) {
+      setLocalError("Please fill in both email and password.");
+      return;
+    }
+
     try {
+      let loginSuccess = false;
+
       if (userType === "user") {
-        const result = await login({ email, password }); // Pozovite login za korisnika
-        if (result) { // Provera da li je login uspešan
-          navigate("/gallery"); // Preusmerite korisnika na /gallery
+        loginSuccess = await login({ email, password });
+      } else {
+        loginSuccess = await employeeLogin({ email, password });
+      }
+
+      if (loginSuccess) {
+        if (userType === "user") {
+          navigate("/gallery"); // Preusmeri korisnika na /gallery ako je prijava uspešna
         } else {
-          setError("Invalid email or password"); // Postavite grešku ako prijava nije uspešna
+          navigate("/employeeDash"); // Preusmeri zaposlenog na /employeeDash ako je prijava uspešna
         }
       } else {
-        const result = await employeeLogin({ email, password }); // Pozovite login za zaposlenog
-        if (result) { // Provera da li je prijava uspešna
-          navigate("/employeeDash"); // Preusmerite zaposlenog na /employeeDash
-        } else {
-          setError("Invalid email or password"); // Postavite grešku ako prijava nije uspešna
-        }
+        setLocalError("Invalid email or password.");
       }
     } catch (err) {
-      setError("An error occurred during login.");
+      setLocalError("An error occurred. Please try again.");
     }
   };
-  
-  
 
   return (
     <div className="auth-container">
@@ -71,7 +78,12 @@ function Login() {
             <option value="employee">Employee</option>
           </select>
         </div>
-        {error && <p className="error-message">{error}</p>}
+
+        {/* Prikaži poruku o grešci - prvo proveri lokalnu, a zatim globalnu grešku */}
+        {(localError || globalError) && (
+          <p className="error-message">{localError || globalError}</p>
+        )}
+
         <div className="btn">
           <button type="submit">Login</button>
         </div>

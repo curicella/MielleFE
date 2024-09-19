@@ -14,7 +14,6 @@ function Register() {
   const [error, setError] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
-  const [isVerified, setIsVerified] = useState(false);
   const navigate = useNavigate();
 
   const handleRegister = async (e) => {
@@ -29,36 +28,38 @@ function Register() {
         address,
       });
 
-      console.log('Server Response:', response.data); // Proverite šta server vraća
+      console.log("Server Response:", response.data); // Proverite šta server vraća
 
-      if (response.data && response.data.message && response.data.message.includes("Verification code sent")) {
+      if (
+        response.data &&
+        response.data.Message &&
+        response.data.Message.includes("Verification code sent")
+      ) {
         setIsModalOpen(true);
-        setIsRegistered(true);
       } else {
-        setError(response.data.message || "Registration initiation failed");
-        setIsRegistered(false);
+        setError(response.data.Message || "Registration initiation failed");
       }
     } catch (err) {
-      console.error('Registration Error:', err);
+      console.error("Registration Error:", err);
       setError("Registration failed");
-      setIsRegistered(false);
     }
   };
 
   const handleVerify = async (verificationCode) => {
     try {
       const response = await verifyUser(email, verificationCode);
-      if (response.data === "User verified and registration completed successfully.") {
-        setIsVerified(true);
+      if (
+        response.data ===
+        "User verified and registration completed successfully."
+      ) {
+        setIsRegistered(true);
         setIsModalOpen(false);
-        navigate("/login"); 
+        navigate("/login");
       } else {
         setError("Invalid verification code");
-        setIsVerified(false);
       }
     } catch (err) {
       setError("Verification failed");
-      setIsVerified(false);
     }
   };
 
@@ -122,7 +123,9 @@ function Register() {
         </div>
         {error && <p className="error-message">{error}</p>}
         <div className="btn">
-          <button type="submit" disabled={isRegistered}>Register</button>
+          <button type="submit" disabled={isRegistered}>
+            Register
+          </button>
         </div>
       </form>
 

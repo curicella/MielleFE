@@ -180,9 +180,9 @@ const EmployeeDash = () => {
                 employees
                   .filter((emp) => roleMap[emp.role] !== "Administrator")
                   .map((employee) => (
-                    <li key={employee.id}>
-                      {employee.firstName} {employee.lastName} - Role:{" "}
-                      {roleMap[employee.role]}
+                    <li key={employee.Id}>
+                      {employee.FirstName} {employee.LastName} - Role:{" "}
+                      {roleMap[employee.Role]}
                       <button onClick={() => handleOpenModal(employee.id)}>
                         Delete
                       </button>
