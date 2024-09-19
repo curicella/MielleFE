@@ -41,13 +41,13 @@ const EmployeeDash = () => {
       try {
         if (employee?.role === "Administrator") {
           const employeesResponse = await fetch(
-            "http://naprednebaze.somee.com/api/Employees"
+            "https://naprednebaze.somee.com/api/Employees"
           );
           const employeesData = await employeesResponse.json();
           setEmployees(employeesData.$values);
         } else {
           const response = await fetch(
-            `http://naprednebaze.somee.com/api/Employees/details/${employee.id}`
+            `https://naprednebaze.somee.com/Employees/details/${employee.id}`
           );
           const data = await response.json();
 
@@ -96,7 +96,7 @@ const EmployeeDash = () => {
 
     try {
       const response = await fetch(
-        `http://naprednebaze.somee.com/api/Employees/${selectedEmployeeId}`,
+        `https://naprednebaze.somee.com/api/Employees/${selectedEmployeeId}`,
         {
           method: "DELETE",
         }

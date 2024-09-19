@@ -27,7 +27,7 @@ const PhotoUpload = () => {
       };
       console.log('Album data to be sent:', albumData);
 
-      const albumResponse = await fetch('http://naprednebaze.somee.com/api/Albums/createAlbum', {
+      const albumResponse = await fetch('https://naprednebaze.somee.com/api/Albums/createAlbum', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -53,7 +53,7 @@ const PhotoUpload = () => {
         formData.append('photos', file);
       });
 
-      const photoUploadResponse = await fetch(`http://naprednebaze.somee.com/api/Albums/uploadPhotos?albumId=${albumId}&employeeId=${loggedInEmployeeId}`, {
+      const photoUploadResponse = await fetch(`https://naprednebaze.somee.com/api/Albums/uploadPhotos?albumId=${albumId}&employeeId=${loggedInEmployeeId}`, {
         method: 'POST',
         body: formData,
       });
