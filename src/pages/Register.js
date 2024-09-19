@@ -14,6 +14,7 @@ function Register() {
   const [error, setError] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
+  const [isVerified, setIsVerified] = useState(false);
   const navigate = useNavigate();
 
   const handleRegister = async (e) => {
@@ -27,17 +28,20 @@ function Register() {
         phoneNumber,
         address,
       });
-  
+
       console.log('Server Response:', response.data); // Proverite šta server vraća
-  
+
       if (response.data && response.data.message && response.data.message.includes("Verification code sent")) {
         setIsModalOpen(true);
+        setIsRegistered(true);
       } else {
         setError(response.data.message || "Registration initiation failed");
+        setIsRegistered(false);
       }
     } catch (err) {
       console.error('Registration Error:', err);
       setError("Registration failed");
+      setIsRegistered(false);
     }
   };
 
@@ -45,14 +49,16 @@ function Register() {
     try {
       const response = await verifyUser(email, verificationCode);
       if (response.data === "User verified and registration completed successfully.") {
-        setIsRegistered(true);
+        setIsVerified(true);
         setIsModalOpen(false);
         navigate("/login"); 
       } else {
         setError("Invalid verification code");
+        setIsVerified(false);
       }
     } catch (err) {
       setError("Verification failed");
+      setIsVerified(false);
     }
   };
 
