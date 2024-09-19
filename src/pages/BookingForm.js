@@ -35,7 +35,7 @@ const BookingForm = () => {
         e.preventDefault();
         if (currentStep === 1) {
             try {
-                const response = await fetch('https://naprednebaze.somee.com/api/Bookings/CheckAvailability', {
+                const response = await fetch('http://miellebe-001-site1.ftempurl.com/api/Bookings/CheckAvailability', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -79,7 +79,7 @@ const BookingForm = () => {
         e.preventDefault();
         if (parseFloat(paymentAmount) === price) {
             try {
-                const bookingResponse = await fetch('https://naprednebaze.somee.com/api/Bookings/Create', {
+                const bookingResponse = await fetch('http://miellebe-001-site1.ftempurl.com/api/Bookings/Create', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -110,7 +110,7 @@ const BookingForm = () => {
                 setPhotographer(bookingData.photographer);
                 setVideographer(bookingData.videographer);
     
-                const confirmResponse = await fetch('https://naprednebaze.somee.com/api/Bookings/Confirm', {
+                const confirmResponse = await fetch('http://miellebe-001-site1.ftempurl.com/api/Bookings/Confirm', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

@@ -35,7 +35,7 @@ const PhotoGallery = () => {
 
   const fetchCredits = async () => {
     try {
-      const response = await axios.get("https://naprednebaze.somee.com/api/Users/MyCredits", {
+      const response = await axios.get("http://miellebe-001-site1.ftempurl.com/api/Users/MyCredits", {
         headers: { Authorization: `Bearer ${token}` }
       });
       setCredits(response.data.credits || 0);
@@ -52,7 +52,7 @@ const PhotoGallery = () => {
 
     try {
       const response = await axios.post(
-        "https://naprednebaze.somee.com/api/Albums/downloadPhoto",
+        "http://miellebe-001-site1.ftempurl.com/api/Albums/downloadPhoto",
         {
           userId: user.id,
           photoId: photo.id
@@ -83,7 +83,7 @@ const PhotoGallery = () => {
 
   const handleFetchAlbum = async () => {
     try {
-      const response = await axios.get(`https://naprednebaze.somee.com/api/Albums/${accessCode}/photos`);
+      const response = await axios.get(`http://miellebe-001-site1.ftempurl.com/api/Albums/${accessCode}/photos`);
       const albumData = response.data;
       if (albumData && albumData.album && albumData.photos && Array.isArray(albumData.photos.$values)) {
         const album = albumData.album;

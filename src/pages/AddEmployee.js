@@ -30,7 +30,7 @@ const AddEmployee = () => {
 
     try {
       const response = await fetch(
-        "https://naprednebaze.somee.com/api/Employees",
+        "http://miellebe-001-site1.ftempurl.com/api/Employees",
         {
           method: "POST",
           headers: {
@@ -43,7 +43,7 @@ const AddEmployee = () => {
       if (response.ok) {
         // Uspešan odgovor
         const employeesData = await (
-          await fetch("https://naprednebaze.somee.com/api/Employees")
+          await fetch("http://miellebe-001-site1.ftempurl.com/api/Employees")
         ).json();
         setEmployees(employeesData.$values);
         setNewEmployee({
